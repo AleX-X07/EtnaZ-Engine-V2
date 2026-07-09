@@ -1,12 +1,13 @@
 ﻿#include "Object.h"
+#include "../Scene/Scene.h"
 
-Object::Object() : Object({0,0},{0,0}){
+Object::Object(Scene* _currentScene) : Object(_currentScene, {0,0},{0,0}){
 }
 
-Object::Object(sf::Vector2f _size) : Object(_size, {0,0}) {
+Object::Object(Scene* _currentScene, sf::Vector2f _size) : Object(_currentScene, _size, {0,0}) {
 }
 
-Object::Object(sf::Vector2f _size, sf::Vector2f _position) : size(_size), position(_position) {
+Object::Object(Scene* _currentScene, sf::Vector2f _size, sf::Vector2f _position) : currentScene(_currentScene), size(_size), position(_position) {
 }
 
 
@@ -29,6 +30,10 @@ sf::Vector2f& Object::getPosition() {
 
 sf::Vector2f& Object::getSize() {
     return size;
+}
+
+Scene* Object::getCurrentScene() {
+    return currentScene;
 }
 
 

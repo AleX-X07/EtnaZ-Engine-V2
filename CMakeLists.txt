@@ -38,7 +38,13 @@ add_executable(EtnaZ_Engine Main/main.cpp
         Object/Component/Periph/MouseComponent.h
         Object/Component/Periph/MouseComponent.cpp
         Tool/Input.h
-        Tool/Input.cpp)
+        Tool/Input.cpp
+        ViewIsometrique/IsoUtils.h
+        ViewIsometrique/IsoUtils.cpp
+        ViewIsometrique/IsoComponent.h
+        ViewIsometrique/IsoComponent.cpp
+        ViewIsometrique/IsoDisplay.h
+        ViewIsometrique/IsoDisplay.cpp)
 
 target_link_libraries(EtnaZ_Engine PRIVATE
         sfml-graphics

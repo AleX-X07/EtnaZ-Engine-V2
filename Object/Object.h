@@ -3,6 +3,8 @@
 
 #include "Component/Component.h"
 
+class Scene;
+
 class Object {
 private:
     std::string name;
@@ -11,17 +13,19 @@ private:
     sf::Vector2f size;
     
     std::vector<Component*> myComponents;
+    Scene* currentScene;
     
 public:
-    Object();
-    Object(sf::Vector2f _size);
-    Object(sf::Vector2f _size, sf::Vector2f _position);
+    Object(Scene* _currentScene);
+    Object(Scene* _currentScene, sf::Vector2f _size);
+    Object(Scene* _currentScene, sf::Vector2f _size, sf::Vector2f _position);
     
     virtual ~Object();
     
     std::string& getName();
     sf::Vector2f& getPosition();
     sf::Vector2f& getSize();
+    Scene* getCurrentScene();
     
     void setName(std::string _name);
     void setPosition(sf::Vector2f _position);

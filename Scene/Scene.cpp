@@ -23,6 +23,10 @@ std::vector<Object*>& Scene::getMyObjects() {
     return myObjects;
 }
 
+Layer* Scene::getLayer() {
+    return myLayer;
+}
+
 int& Scene::getIdScene() {
     return idScene;
 }

@@ -21,7 +21,7 @@ private:
 public:
     ~Input();
     
-    static Input* getInput();
+    static Input* getInstance();
     
     void setEvent(sf::Event event);
     void reset();

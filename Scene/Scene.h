@@ -16,6 +16,7 @@ public:
     virtual ~Scene();
     
     std::vector<Object*>& getMyObjects();
+    Layer* getLayer();
     int& getIdScene();
     
     void addObjectInScene(Object* obj);

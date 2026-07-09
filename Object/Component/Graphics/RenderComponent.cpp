@@ -53,6 +53,10 @@ void RenderComponent::setColor(sf::Color newColor) {
     rect->setFillColor(*color);
 }
 
+sf::RectangleShape* RenderComponent::getRect() {
+    return rect;
+}
+
 sf::Texture* RenderComponent::getTexture() {
     return texture;
 }

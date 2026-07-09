@@ -11,6 +11,8 @@ public:
     Layer();
     ~Layer() = default;
     
+    std::vector<std::vector<Object*>>& getVecLayers();
+    
     void setNbrLayer(int nbrLayers);
     void addInLayer(Object* myObject, int layer);
     

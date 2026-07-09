@@ -1,6 +1,7 @@
 ﻿#pragma once
 #include "SFML/Graphics.hpp"
 
+#include "../Tool/Input.h"
 #include "../Scene/Scene.h"
 #include "../Dev.h"
 

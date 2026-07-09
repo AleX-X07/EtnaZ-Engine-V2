@@ -5,6 +5,10 @@ Layer::Layer() {
     setNbrLayer(1);
 }
 
+std::vector<std::vector<Object*>>& Layer::getVecLayers() {
+    return layers;
+}
+
 void Layer::setNbrLayer(int _nbrLayers) {
     nbrLayers = _nbrLayers;
     for (int X = 0; X < nbrLayers; X++) {

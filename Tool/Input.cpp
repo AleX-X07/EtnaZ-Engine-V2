@@ -20,7 +20,7 @@ sf::Keyboard::Key Input::getKey(const std::string& key) {
     return sf::Keyboard::Key::Unknown;
 }
 
-Input* Input::getInput() {
+Input* Input::getInstance() {
     if (myInstance == nullptr) {
         myInstance = new Input();
     }

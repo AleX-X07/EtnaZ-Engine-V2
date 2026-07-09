@@ -18,6 +18,8 @@ GameEngine::~GameEngine() {
     
     delete window;
     window = nullptr;
+    
+    Input::getInstance()->deleteSingleton();
 }
 
 

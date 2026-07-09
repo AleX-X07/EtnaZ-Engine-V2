@@ -38,7 +38,7 @@ bool MouseComponent::isClicked() {
 }
 
 bool MouseComponent::clicked() {
-    if (Input::getInput()->isMousePressed(sf::Mouse::Button::Left)) {
+    if (Input::getInstance()->isMousePressed(sf::Mouse::Button::Left)) {
         return true;
     }
     return false;

@@ -17,7 +17,8 @@ public:
     void setTexture(sf::Texture* newTexture);
     void setColor(sf::Color newColor);
     
-    sf::Texture* getTexture();
+    sf::RectangleShape* getRect();
+    sf::Texture* getTexture();;
     sf::Color* getColor();
     
     virtual void update(float& deltaTime) override;
