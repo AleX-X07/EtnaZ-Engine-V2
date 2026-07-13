@@ -41,8 +41,6 @@ Dev::Dev() {
     //     offsetX-=10;
     // }
     
-    sf::Vector2f screen = {1280,720};
-    sf::Vector2f level = {screen.x*4,screen.y*4};
     
     for (int X = 0; X < level.x/128; X++) {
         for (int Y = 0; Y < level.y/128; Y++) {
