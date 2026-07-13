@@ -1,5 +1,5 @@
 ﻿#pragma once
-#include "SFMl/Graphics.hpp"
+#include "SFML/Graphics.hpp"
 
 using InputMap = std::unordered_map<std::string, sf::Keyboard::Key>;
 

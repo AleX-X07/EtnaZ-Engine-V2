@@ -51,7 +51,9 @@ add_executable(EtnaZ_Engine Main/main.cpp
         Reader/SceneReader.cpp
         Object/Component/Tool/CameraComponent.h
         Object/Component/Tool/CameraComponent.cpp
-        Globals.h)
+        Globals.h
+        Object/Component/Periph/DragComponent.h
+        Object/Component/Periph/DragComponent.cpp)
 
 target_link_libraries(EtnaZ_Engine PRIVATE
         sfml-graphics
