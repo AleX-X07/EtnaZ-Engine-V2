@@ -8,6 +8,8 @@ private:
     sf::Texture* texture;
     sf::RectangleShape* rect;
     sf::Color* color;
+    
+    bool isActive;
 
 public:
     RenderComponent(Object* _owner, std::string _path);
@@ -20,6 +22,8 @@ public:
     sf::RectangleShape* getRect();
     sf::Texture* getTexture();;
     sf::Color* getColor();
+    
+    void setVisibility(bool newVisibility);
     
     virtual void update(float& deltaTime) override;
     virtual void render() override;

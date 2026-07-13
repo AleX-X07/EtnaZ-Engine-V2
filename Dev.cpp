@@ -7,6 +7,7 @@
 
 Dev::Dev() {
     Scene* scene = new Scene();
+    scene->getLayer()->setNbrLayer(3);
     GameEngine::setCurrentScene(scene);
     
     // Object* newObj = new Object(scene,{1920,15},{0,0});
@@ -39,4 +40,25 @@ Dev::Dev() {
     //     }
     //     offsetX-=10;
     // }
+    
+    sf::Vector2f screen = {1280,720};
+    sf::Vector2f level = {screen.x*4,screen.y*4};
+    
+    for (int X = 0; X < level.x/128; X++) {
+        for (int Y = 0; Y < level.y/128; Y++) {
+            Object* newObj = new Object(scene,{128,128},{128*float(X),128*float(Y)});
+            newObj->addComponent(new RenderComponent(newObj,sf::Color(0,0,0,255)));
+            newObj->getComponent<RenderComponent>()->getRect()->setOutlineColor({255,255,255});
+            newObj->getComponent<RenderComponent>()->getRect()->setOutlineThickness(2);
+            GameEngine::getCurrentScene()->addObjectInScene(newObj,0);
+        }
+    }
+    
+    Object* newObj = new Object(scene,{screen.x,15},{0,0});
+    newObj->addComponent(new RenderComponent(newObj,sf::Color(0,128,128)));
+    GameEngine::getCurrentScene()->addObjectInScene(newObj,2);
+    
+    Object* newObj2 = new Object(scene,{screen.x/4,screen.y},{0,0});
+    newObj2->addComponent(new RenderComponent(newObj2,sf::Color(128,128,128)));
+    GameEngine::getCurrentScene()->addObjectInScene(newObj2,1);
 }

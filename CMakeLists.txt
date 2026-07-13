@@ -44,7 +44,13 @@ add_executable(EtnaZ_Engine Main/main.cpp
         ViewIsometrique/IsoComponent.h
         ViewIsometrique/IsoComponent.cpp
         ViewIsometrique/IsoDisplay.h
-        ViewIsometrique/IsoDisplay.cpp)
+        ViewIsometrique/IsoDisplay.cpp
+        Reader/Reader.h
+        Reader/Reader.cpp
+        Reader/SceneReader.h
+        Reader/SceneReader.cpp
+        Object/Component/Tool/CameraComponent.h
+        Object/Component/Tool/CameraComponent.cpp)
 
 target_link_libraries(EtnaZ_Engine PRIVATE
         sfml-graphics

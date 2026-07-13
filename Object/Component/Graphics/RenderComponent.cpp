@@ -4,6 +4,8 @@
 #include "../../../Main/GameEngine.h"
 
 RenderComponent::RenderComponent(Object* _owner, std::string _path) : Component(_owner) {
+    isActive = true;
+    
     texture = new sf::Texture();
     color = nullptr;
 
@@ -19,7 +21,9 @@ RenderComponent::RenderComponent(Object* _owner, std::string _path) : Component(
 }
 
 RenderComponent::RenderComponent(Object* _owner, sf::Color _color) : Component(_owner) {
-    color = &_color;
+    isActive = true;
+    
+    color = new sf::Color(_color);
     texture = nullptr;
     
     rect = new sf::RectangleShape(owner->getSize());
@@ -65,11 +69,17 @@ sf::Color* RenderComponent::getColor() {
     return color;
 }
 
+void RenderComponent::setVisibility(bool newVisibility) {
+    isActive = newVisibility;
+}
+
 
 void RenderComponent::update(float& deltaTime) {
     rect->setPosition(owner->getPosition());
 }
 
 void RenderComponent::render() {
-    GameEngine::getWindow()->draw(*rect);
+    if (isActive) {
+        GameEngine::getWindow()->draw(*rect);
+    }
 }
