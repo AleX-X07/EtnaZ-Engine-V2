@@ -1,6 +1,7 @@
 ﻿#include "Dev.h"
 
 #include "Main/GameEngine.h"
+#include "Object/Component/Engine/ReadTile.h"
 #include "Object/Component/Graphics/RenderComponent.h"
 #include "ViewIsometrique/IsoComponent.h"
 #include "ViewIsometrique/IsoDisplay.h"
@@ -58,5 +59,6 @@ Dev::Dev() {
     
     Object* newObj2 = new Object(scene,{screen.x/4,screen.y},{0,0});
     newObj2->addComponent(new RenderComponent(newObj2,sf::Color(128,128,128)));
+    newObj2->addComponent(new ReadTile(newObj2, "Engine/Image",{128,128}));
     GameEngine::getCurrentScene()->addObjectInScene(newObj2,1);
 }

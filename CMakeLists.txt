@@ -53,7 +53,9 @@ add_executable(EtnaZ_Engine Main/main.cpp
         Object/Component/Tool/CameraComponent.cpp
         Globals.h
         Object/Component/Periph/DragComponent.h
-        Object/Component/Periph/DragComponent.cpp)
+        Object/Component/Periph/DragComponent.cpp
+        Object/Component/Engine/ReadTile.h
+        Object/Component/Engine/ReadTile.cpp)
 
 target_link_libraries(EtnaZ_Engine PRIVATE
         sfml-graphics
@@ -66,3 +68,8 @@ add_custom_command(TARGET EtnaZ_Engine POST_BUILD COMMAND
         ${CMAKE_COMMAND} -E copy_directory 
         ${CMAKE_SOURCE_DIR}/Assets 
         $<TARGET_FILE_DIR:EtnaZ_Engine>/Assets )
+
+add_custom_command(TARGET EtnaZ_Engine POST_BUILD COMMAND
+        ${CMAKE_COMMAND} -E copy_directory
+        ${CMAKE_SOURCE_DIR}/Engine
+        $<TARGET_FILE_DIR:EtnaZ_Engine>/Engine )
