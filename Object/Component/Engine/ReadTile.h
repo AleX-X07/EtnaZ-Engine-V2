@@ -7,7 +7,7 @@ private:
     std::string path;
     
 public:
-    ReadTile(Object* _owner, std::string _path, sf::Vector2f _sizeImage);
+    ReadTile(Object* _owner, std::string _path, int _nbrColonne);
     virtual ~ReadTile() override;
     
     virtual void update(float& deltaTime) override;
