@@ -13,7 +13,7 @@ private:
 
 public:
     RenderComponent(Object* _owner, std::string _path);
-    RenderComponent(Object* _owner, sf::Color _color);
+    RenderComponent(Object* _owner, sf::Color _color);  
     virtual ~RenderComponent() override;
     
     void setTexture(sf::Texture* newTexture);

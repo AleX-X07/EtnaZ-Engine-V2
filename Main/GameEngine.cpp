@@ -24,10 +24,12 @@ GameEngine::~GameEngine() {
 
 
 void GameEngine::updateEvent() {
+    Input::getInstance()->reset();
     while (const std::optional event = window->pollEvent()) {
         if (event->is<sf::Event::Closed>()) {
             window->close();
         }
+        Input::getInstance()->setEvent(*event);
     }
 }
 

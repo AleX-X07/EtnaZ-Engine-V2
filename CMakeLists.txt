@@ -55,7 +55,9 @@ add_executable(EtnaZ_Engine Main/main.cpp
         Object/Component/Periph/DragComponent.h
         Object/Component/Periph/DragComponent.cpp
         Object/Component/Engine/ReadTile.h
-        Object/Component/Engine/ReadTile.cpp)
+        Object/Component/Engine/ReadTile.cpp
+        Object/Component/Graphics/RenderTextComponent.h
+        Object/Component/Graphics/RenderTextComponent.cpp)
 
 target_link_libraries(EtnaZ_Engine PRIVATE
         sfml-graphics

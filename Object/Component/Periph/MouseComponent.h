@@ -16,5 +16,7 @@ public:
     
     sf::Vector2i getMousePosition();
     bool isClicked();
-    bool clicked();
+    bool isSelected();
+    
+    void setSelected(bool _selected);
 };

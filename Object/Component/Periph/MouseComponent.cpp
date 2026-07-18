@@ -23,7 +23,7 @@ bool MouseComponent::isClicked() {
         owner->getSize().y}
     );
     
-    if (clicked() && bounds.contains(sf::Vector2f(mousePos))) {
+    if (Input::getInstance()->isMousePressed(sf::Mouse::Button::Left) && bounds.contains(sf::Vector2f(mousePos))) {
         if (selected) {
             selected = false;
         }
@@ -37,9 +37,10 @@ bool MouseComponent::isClicked() {
     }
 }
 
-bool MouseComponent::clicked() {
-    if (Input::getInstance()->isMousePressed(sf::Mouse::Button::Left)) {
-        return true;
-    }
-    return false;
+bool MouseComponent::isSelected() {
+    return selected;
+}
+
+void MouseComponent::setSelected(bool _selected) {
+    selected = _selected;
 }
