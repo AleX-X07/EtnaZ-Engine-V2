@@ -1,5 +1,6 @@
 ﻿#include "Input.h"
 
+#include "../Main/GameEngine.h"
 #include "SFML/Window/Event.hpp"
 
 Input* Input::myInstance = nullptr;

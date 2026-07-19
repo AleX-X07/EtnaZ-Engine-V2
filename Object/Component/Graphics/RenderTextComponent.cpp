@@ -10,10 +10,18 @@ RenderTextComponent::RenderTextComponent(Object* _owner, std::string _path, int 
 }
 
 RenderTextComponent::RenderTextComponent(Object* _owner, std::string _path, int _characterSize, sf::Color _color) : Component(_owner), path(_path) {
-    sf::Font font(path);
-    myText = new sf::Text(font);
-    myText->setCharacterSize(_characterSize);
-    myText->setFillColor(_color);
+    isActive = true;
+    
+    myFont = new sf::Font(path);
+    if (myFont) {
+        myText = new sf::Text(*myFont);
+        myText->setCharacterSize(_characterSize);
+        myText->setFillColor(_color);
+    }
+    else {
+        myFont = nullptr;
+        myText = nullptr;
+    }
 }
 
 RenderTextComponent::~RenderTextComponent() {
@@ -25,10 +33,16 @@ void RenderTextComponent::setText(std::string _text) {
     myText->setString(_text);
 }
 
+void RenderTextComponent::setVisibility(bool _visible) {
+    isActive = _visible;
+}
+
 void RenderTextComponent::update(float& deltaTime) {
     myText->setPosition(owner->getPosition());
 }
 
 void RenderTextComponent::render() {
-    GameEngine::getWindow()->draw(*myText);
+    if (isActive) {
+        GameEngine::getWindow()->draw(*myText);
+    }
 }

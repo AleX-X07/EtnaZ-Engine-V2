@@ -41,6 +41,22 @@ bool MouseComponent::isSelected() {
     return selected;
 }
 
+bool MouseComponent::isHover() {
+    sf::Vector2i mousePixel = sf::Mouse::getPosition(*GameEngine::getWindow());
+    sf::Vector2f mousePos = GameEngine::getWindow()->mapPixelToCoords(mousePixel, GameEngine::getWindow()->getDefaultView()); 
+    
+    sf::FloatRect bounds(
+        {owner->getPosition().x,
+        owner->getPosition().y},
+        {owner->getSize().x,
+        owner->getSize().y}
+    );
+    if (bounds.contains(sf::Vector2f(mousePos))) {
+        return true;
+    }
+    return false;
+}
+
 void MouseComponent::setSelected(bool _selected) {
     selected = _selected;
 }

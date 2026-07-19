@@ -1,26 +1,38 @@
 ﻿#include "ReadTile.h"
 #include "../../Object.h"
 #include "../../../Main/GameEngine.h"
+#include "../Graphics/HoverComponent.h"
 #include "../Graphics/RenderComponent.h"
+#include "../Graphics/RenderTextComponent.h"
 #include "../Periph/MouseComponent.h"
+#include "../Engine/OpenFileExplorerComponent.h"
 
-ReadTile::ReadTile(Object* _owner, std::string _path, int nbrColonne) : Component(_owner), path(_path){
+ReadTile::ReadTile(Object* _owner, std::string _path, int _nbrColonne) : Component(_owner), path(_path){
+    nbrColonne = _nbrColonne;
     currentSelected = nullptr;
     tileSelected = nullptr;
     tileSelect = false;
     
     offsetImage = owner->getSize().x / nbrColonne / 8 * 2;
-    int currentColonne = 0;
-    int currentLigne = 0;
+    currentColonne = 0;
+    currentLigne = 0;
     
-    sf::Vector2f _sizeImage = {owner->getSize().x / nbrColonne - offsetImage,owner->getSize().x / nbrColonne - offsetImage};
+    _sizeImage = {owner->getSize().x / nbrColonne - offsetImage,owner->getSize().x / nbrColonne - offsetImage};
     
-    float X = owner->getPosition().x + offsetImage;
-    float Y = (owner->getPosition().y + offsetImage);
+    X = owner->getPosition().x + offsetImage;
+    Y = (owner->getPosition().y + offsetImage);
     
-    Object* addImage = new Object(owner->getCurrentScene(), {_sizeImage.x, _sizeImage.y/2}, {X,Y});
-    addImage->addComponent(new RenderComponent(addImage, sf::Color::Black));
-    myButtons.push_back(addImage);
+    addImage = new Object(owner->getCurrentScene(), {_sizeImage.x, _sizeImage.y/2}, {X,Y});
+    addImage->addComponent(new MouseComponent(addImage));
+    addImage->addComponent(new RenderComponent(addImage, sf::Color::White));
+    addImage->getComponent<RenderComponent>()->setOutline(5);
+    addImage->getComponent<RenderComponent>()->setOutlineColor(sf::Color::Black);
+    addImage->addComponent(new HoverComponent(addImage, sf::Color::Green));
+    addImage->getComponent<HoverComponent>()->setOutlineTickness(5);
+    addImage->getComponent<HoverComponent>()->setOutlineColor(sf::Color::Red);
+    addImage->addComponent(new RenderTextComponent(addImage, "Engine/Font/Brown_Cookies.otf", 12, sf::Color::Black));
+    addImage->getComponent<RenderTextComponent>()->setText("Add \n Image");
+    addImage->addComponent(new OpenFileExplorerComponent(addImage, path, {"png","jpg"}));
     
     currentLigne++;
     Y = (owner->getPosition().y + offsetImage) + ((_sizeImage.y + offsetImage)*currentLigne);
@@ -30,21 +42,11 @@ ReadTile::ReadTile(Object* _owner, std::string _path, int nbrColonne) : Componen
     }
     else {
         for (auto& i : std::filesystem::directory_iterator(path)) {
-            if (i.path().extension() == ".png") {
-                Object* obj = new Object(owner->getCurrentScene(),_sizeImage,{X,Y});
-                obj->addComponent(new RenderComponent(obj,i.path().string()));
-                obj->addComponent(new MouseComponent(obj));
-                currentColonne++;
-                if (currentColonne >= nbrColonne) {
-                    currentColonne = 0;
-                    currentLigne++;
-                    X = owner->getPosition().x + offsetImage;
-                    Y = (owner->getPosition().y + offsetImage) + ((_sizeImage.y + offsetImage)*currentLigne);
+            if (addImage->hasComponent<OpenFileExplorerComponent>()) {
+                auto* comp = addImage->getComponent<OpenFileExplorerComponent>();
+                if (comp->isExtensionCompatible(i.path().extension().string())) {
+                    addTileFromFile(i.path());
                 }
-                else {
-                    X = X + _sizeImage.x + offsetImage/2;
-                }
-                myTiles.push_back(obj);
             }
         }
     }
@@ -72,9 +74,39 @@ void ReadTile::tileDisplay() {
     }
 }
 
+void ReadTile::addTileFromFile(const std::filesystem::path& _path) {
+    if (!_path.empty()) {
+        Object* obj = new Object(owner->getCurrentScene(), _sizeImage, {X, Y});
+        obj->addComponent(new RenderComponent(obj, _path.string()));
+        obj->addComponent(new MouseComponent(obj));
+
+        currentColonne++;
+        if (currentColonne >= nbrColonne) {
+            currentColonne = 0;
+            currentLigne++;
+            X = owner->getPosition().x + offsetImage;
+            Y = (owner->getPosition().y + offsetImage) + ((_sizeImage.y + offsetImage) * currentLigne);
+        } else {
+            X = X + _sizeImage.x + offsetImage / 2;
+        }
+
+        myTiles.push_back(obj);
+    }
+}
+
+
+std::string& ReadTile::getPath() {
+    return path;
+}
+
 void ReadTile::update(float& deltaTime) {
-    for (auto& b : myButtons) {
-        b->update(deltaTime);
+    addImage->update(deltaTime);
+    if (addImage->hasComponent<MouseComponent>()) {
+        if (addImage->getComponent<MouseComponent>()->isClicked()) {
+             if(addImage->hasComponent<OpenFileExplorerComponent>()) {
+                 addTileFromFile(addImage->getComponent<OpenFileExplorerComponent>()->openFileExplorer());
+             }
+        }
     }
     tileDisplay();
     for (auto& t : myTiles) {
@@ -95,9 +127,7 @@ void ReadTile::update(float& deltaTime) {
 }
 
 void ReadTile::render() {
-    for (auto& b : myButtons) {
-        b->render();
-    }
+    addImage->render();
     if (currentSelected != nullptr && tileSelect) {
         GameEngine::getWindow()->draw(*currentSelected);
     }

@@ -19,6 +19,13 @@ FetchContent_Declare(json
         EXCLUDE_FROM_ALL)
 FetchContent_MakeAvailable(json)
 
+FetchContent_Declare(
+        tinyfiledialogs
+        GIT_REPOSITORY https://github.com/native-toolkit/tinyfiledialogs.git
+        GIT_TAG master
+        EXCLUDE_FROM_ALL)
+FetchContent_MakeAvailable(tinyfiledialogs)
+
 add_executable(EtnaZ_Engine Main/main.cpp
         Main/GameEngine.h
         Main/GameEngine.cpp
@@ -57,7 +64,14 @@ add_executable(EtnaZ_Engine Main/main.cpp
         Object/Component/Engine/ReadTile.h
         Object/Component/Engine/ReadTile.cpp
         Object/Component/Graphics/RenderTextComponent.h
-        Object/Component/Graphics/RenderTextComponent.cpp)
+        Object/Component/Graphics/RenderTextComponent.cpp
+        Object/Component/Graphics/HoverComponent.h
+        Object/Component/Graphics/HoverComponent.cpp
+        ${tinyfiledialogs_SOURCE_DIR}/tinyfiledialogs.c
+        Object/Component/Engine/OpenFileExplorerComponent.cpp
+        Object/Component/Engine/OpenFileExplorerComponent.h)
+
+target_include_directories(EtnaZ_Engine PRIVATE ${tinyfiledialogs_SOURCE_DIR})
 
 target_link_libraries(EtnaZ_Engine PRIVATE
         sfml-graphics

@@ -4,6 +4,7 @@
 #include "../../../Main/GameEngine.h"
 
 RenderComponent::RenderComponent(Object* _owner, std::string _path) : Component(_owner) {
+    outlineTickness = 0;
     isActive = true;
     
     texture = new sf::Texture();
@@ -21,6 +22,7 @@ RenderComponent::RenderComponent(Object* _owner, std::string _path) : Component(
 }
 
 RenderComponent::RenderComponent(Object* _owner, sf::Color _color) : Component(_owner) {
+    outlineTickness = 0;
     isActive = true;
     
     color = new sf::Color(_color);
@@ -30,6 +32,22 @@ RenderComponent::RenderComponent(Object* _owner, sf::Color _color) : Component(_
     rect->setPosition(owner->getPosition());
     
     rect->setFillColor(*color);
+}
+
+RenderComponent::RenderComponent(Object* _owner, int _outlineTickness, sf::Color _color) : Component(_owner) {
+    isActive = true;
+    
+    color = nullptr;
+    texture = nullptr;
+    
+    rect = new sf::RectangleShape(owner->getSize());
+    rect->setPosition(owner->getPosition());
+    
+    outlineTickness = _outlineTickness;
+    outlineColor = _color;
+    
+    rect->setOutlineThickness(outlineTickness);
+    rect->setOutlineColor(outlineColor);
 }
 
 RenderComponent::~RenderComponent() {
@@ -55,6 +73,16 @@ void RenderComponent::setTexture(sf::Texture* newTexture) {
 void RenderComponent::setColor(sf::Color newColor) {
     color = &newColor;
     rect->setFillColor(*color);
+}
+
+void RenderComponent::setOutline(int _newOutline) {
+    outlineTickness = _newOutline;
+    rect->setOutlineThickness(outlineTickness);
+}
+
+void RenderComponent::setOutlineColor(sf::Color _newColor) {
+    outlineColor = _newColor;
+    rect->setOutlineColor(outlineColor);
 }
 
 sf::RectangleShape* RenderComponent::getRect() {
