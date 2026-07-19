@@ -1,10 +1,11 @@
 ﻿#pragma once
 #include "../Component.h"
 
-class ReadTile final : public Component{
+class ReadTileComponent final : public Component{
 private:
     
     Object* addImage;
+    Object* removeImage;
     std::vector<Object*> myTiles;
     std::string path;
     
@@ -24,8 +25,8 @@ private:
     sf::Vector2f _sizeImage;
     
 public:
-    ReadTile(Object* _owner, std::string _path, int _nbrColonne);
-    virtual ~ReadTile() override;
+    ReadTileComponent(Object* _owner, std::string _path, int _nbrColonne);
+    virtual ~ReadTileComponent() override;
     
     void tileDisplay();
     void addTileFromFile(const std::filesystem::path& _path);

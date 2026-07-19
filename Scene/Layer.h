@@ -9,7 +9,7 @@ private:
     
 public:
     Layer();
-    ~Layer() = default;
+    ~Layer();
     
     std::vector<std::vector<Object*>>& getVecLayers();
     

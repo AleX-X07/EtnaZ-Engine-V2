@@ -61,15 +61,17 @@ add_executable(EtnaZ_Engine Main/main.cpp
         Globals.h
         Object/Component/Periph/DragComponent.h
         Object/Component/Periph/DragComponent.cpp
-        Object/Component/Engine/ReadTile.h
-        Object/Component/Engine/ReadTile.cpp
+        Object/Component/Engine/ReadTileComponent.h
+        Object/Component/Engine/ReadTileComponent.cpp
         Object/Component/Graphics/RenderTextComponent.h
         Object/Component/Graphics/RenderTextComponent.cpp
         Object/Component/Graphics/HoverComponent.h
         Object/Component/Graphics/HoverComponent.cpp
         ${tinyfiledialogs_SOURCE_DIR}/tinyfiledialogs.c
         Object/Component/Engine/OpenFileExplorerComponent.cpp
-        Object/Component/Engine/OpenFileExplorerComponent.h)
+        Object/Component/Engine/OpenFileExplorerComponent.h
+        Object/Component/Engine/MapEditorComponent.h
+        Object/Component/Engine/MapEditorComponent.cpp)
 
 target_include_directories(EtnaZ_Engine PRIVATE ${tinyfiledialogs_SOURCE_DIR})
 

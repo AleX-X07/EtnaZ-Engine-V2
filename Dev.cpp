@@ -1,7 +1,8 @@
 ﻿#include "Dev.h"
 
 #include "Main/GameEngine.h"
-#include "Object/Component/Engine/ReadTile.h"
+#include "Object/Component/Engine/MapEditorComponent.h"
+#include "Object/Component/Engine/ReadTileComponent.h"
 #include "Object/Component/Graphics/RenderComponent.h"
 #include "ViewIsometrique/IsoComponent.h"
 #include "ViewIsometrique/IsoDisplay.h"
@@ -41,17 +42,9 @@ Dev::Dev() {
     //     }
     //     offsetX-=10;
     // }
-    
-    
-    for (int X = 0; X < level.x/128; X++) {
-        for (int Y = 0; Y < level.y/128; Y++) {
-            Object* newObj = new Object(scene,{128,128},{128*float(X),128*float(Y)});
-            newObj->addComponent(new RenderComponent(newObj,sf::Color(0,0,0,255)));
-            newObj->getComponent<RenderComponent>()->getRect()->setOutlineColor({255,255,255});
-            newObj->getComponent<RenderComponent>()->getRect()->setOutlineThickness(2);
-            GameEngine::getCurrentScene()->addObjectInScene(newObj,0);
-        }
-    }
+    Object* map = new Object(scene);
+    map->addComponent(new MapEditorComponent(map));
+    GameEngine::getCurrentScene()->addObjectInScene(map,0);
     
     Object* newObj = new Object(scene,{screen.x,15},{0,0});
     newObj->addComponent(new RenderComponent(newObj,sf::Color(0,128,128)));
@@ -59,6 +52,6 @@ Dev::Dev() {
     
     Object* newObj2 = new Object(scene,{screen.x/4,screen.y},{0,15});
     newObj2->addComponent(new RenderComponent(newObj2,sf::Color(255,255,255)));
-    newObj2->addComponent(new ReadTile(newObj2, "Engine/Image",4));
+    newObj2->addComponent(new ReadTileComponent(newObj2, "Engine/Image",4));
     GameEngine::getCurrentScene()->addObjectInScene(newObj2,1);
 }

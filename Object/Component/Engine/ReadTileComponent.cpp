@@ -1,4 +1,4 @@
-﻿#include "ReadTile.h"
+﻿#include "ReadTileComponent.h"
 #include "../../Object.h"
 #include "../../../Main/GameEngine.h"
 #include "../Graphics/HoverComponent.h"
@@ -7,7 +7,7 @@
 #include "../Periph/MouseComponent.h"
 #include "../Engine/OpenFileExplorerComponent.h"
 
-ReadTile::ReadTile(Object* _owner, std::string _path, int _nbrColonne) : Component(_owner), path(_path){
+ReadTileComponent::ReadTileComponent(Object* _owner, std::string _path, int _nbrColonne) : Component(_owner), path(_path){
     nbrColonne = _nbrColonne;
     currentSelected = nullptr;
     tileSelected = nullptr;
@@ -52,7 +52,7 @@ ReadTile::ReadTile(Object* _owner, std::string _path, int _nbrColonne) : Compone
     }
 }
 
-ReadTile::~ReadTile() {
+ReadTileComponent::~ReadTileComponent() {
     for (auto t : myTiles) {
         delete t;
         t = nullptr;
@@ -60,7 +60,7 @@ ReadTile::~ReadTile() {
     myTiles.clear();
 }
 
-void ReadTile::tileDisplay() {
+void ReadTileComponent::tileDisplay() {
     if (tileSelected != nullptr) {
         currentSelected = new sf::RectangleShape({tileSelected->getSize().x + offsetImage/2,tileSelected->getSize().y + offsetImage/2});
         currentSelected->setPosition({tileSelected->getPosition().x - offsetImage/4,tileSelected->getPosition().y - offsetImage/4});
@@ -74,7 +74,7 @@ void ReadTile::tileDisplay() {
     }
 }
 
-void ReadTile::addTileFromFile(const std::filesystem::path& _path) {
+void ReadTileComponent::addTileFromFile(const std::filesystem::path& _path) {
     if (!_path.empty()) {
         Object* obj = new Object(owner->getCurrentScene(), _sizeImage, {X, Y});
         obj->addComponent(new RenderComponent(obj, _path.string()));
@@ -95,11 +95,11 @@ void ReadTile::addTileFromFile(const std::filesystem::path& _path) {
 }
 
 
-std::string& ReadTile::getPath() {
+std::string& ReadTileComponent::getPath() {
     return path;
 }
 
-void ReadTile::update(float& deltaTime) {
+void ReadTileComponent::update(float& deltaTime) {
     addImage->update(deltaTime);
     if (addImage->hasComponent<MouseComponent>()) {
         if (addImage->getComponent<MouseComponent>()->isClicked()) {
@@ -126,7 +126,7 @@ void ReadTile::update(float& deltaTime) {
     }
 }
 
-void ReadTile::render() {
+void ReadTileComponent::render() {
     addImage->render();
     if (currentSelected != nullptr && tileSelect) {
         GameEngine::getWindow()->draw(*currentSelected);

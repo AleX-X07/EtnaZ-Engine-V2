@@ -1,7 +1,7 @@
 #include "OpenFileExplorerComponent.h"
 
 #include "../../Object.h"
-#include "../Engine/ReadTile.h"
+#include "../Engine/ReadTileComponent.h"
 
 OpenFileExplorerComponent::OpenFileExplorerComponent(Object* _owner, std::string _path, std::vector<std::string> _filesCompatible) : Component(_owner) {
     filesCompatible = _filesCompatible;
@@ -75,5 +75,5 @@ void OpenFileExplorerComponent::update(float& deltaTime) {
 }
 
 void OpenFileExplorerComponent::render() {
-    Component::render();
+    
 }

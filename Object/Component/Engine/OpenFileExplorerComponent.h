@@ -1,4 +1,6 @@
 #pragma once
+#include <cstdlib>
+
 #include "../Component.h"
 #include "tinyfiledialogs.h"
 
