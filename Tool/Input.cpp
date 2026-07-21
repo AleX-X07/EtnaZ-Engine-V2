@@ -39,12 +39,17 @@ void Input::setEvent(sf::Event event) {
         mouse = m->button;
         mousePos = m->position;
     }
+    else if (auto* m = event.getIf<sf::Event::MouseWheelScrolled>()) {
+        factWheelScrolled = m->delta;
+        mousePos = m->position;
+    }
 }
 
 
 void Input::reset() {
     keyPressed = false;
     mousePressed = false;
+    factWheelScrolled = 0;
 }
 
 
@@ -54,6 +59,10 @@ bool Input::isKeyPressed(sf::Keyboard::Key _key) {
 
 bool Input::isMousePressed(sf::Mouse::Button _button) {
     return mousePressed && mouse == _button;
+}
+
+float Input::getWheelScrolled() {
+    return factWheelScrolled;
 }
 
 void Input::deleteSingleton() {

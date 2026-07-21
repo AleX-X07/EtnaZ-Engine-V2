@@ -16,6 +16,8 @@ private:
     sf::Mouse::Button mouse;
     sf::Vector2i mousePos;
     
+    float factWheelScrolled;
+    
     Input() = default;
     
 public:
@@ -31,6 +33,8 @@ public:
     
     bool isKeyPressed(sf::Keyboard::Key key);
     bool isMousePressed(sf::Mouse::Button button);
+    
+    float getWheelScrolled();
     
     void deleteSingleton();
 };

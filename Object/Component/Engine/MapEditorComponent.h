@@ -9,6 +9,9 @@ private:
     std::vector<Object*> socketTiles;
     Layer* myLayer;
     Object* camera;
+    sf::FloatRect* camRect;
+    sf::RenderTexture* surface;
+    sf::Sprite* sprite;
     
 public:
     MapEditorComponent(Object* _owner);
