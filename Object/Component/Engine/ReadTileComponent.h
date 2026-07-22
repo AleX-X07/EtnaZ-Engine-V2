@@ -1,4 +1,6 @@
 ﻿#pragma once
+#include <iostream>
+
 #include "../Component.h"
 
 class ReadTileComponent final : public Component{
@@ -6,6 +8,7 @@ private:
     
     Object* addImage;
     Object* removeImage;
+    
     std::vector<Object*> myTiles;
     std::string path;
     
@@ -22,7 +25,7 @@ private:
     float X;
     float Y;
     
-    sf::Vector2f _sizeImage;
+    sf::Vector2f sizeImage;
     
     int layerSelected;
     
@@ -32,11 +35,12 @@ public:
     
     void tileDisplay();
     void addTileFromFile(const std::filesystem::path& _path);
+    void removeDisplay();
     
     std::string& getPath();
     Object* getTileSelected();
     int getLayerSelected();
-    int getOutlineSocket();
+    Object* getRemove();
     
     virtual void update(float& deltaTime) override;
     virtual void render() override;

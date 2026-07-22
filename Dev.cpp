@@ -23,7 +23,7 @@ Dev::Dev() {
     GameEngine::getCurrentScene()->addObjectInScene(newObj,2);
     
     Object* newObj2 = new Object(scene,{screen.x/4,screen.y},{0,15});
-    newObj2->addComponent(new RenderComponent(newObj2,sf::Color(255,255,255)));
+    newObj2->addComponent(new RenderComponent(newObj2,sf::Color(128,128,128)));
     newObj2->addComponent(new ReadTileComponent(newObj2, "Engine/Image",4));
     GameEngine::getCurrentScene()->addObjectInScene(newObj2,1);
 }

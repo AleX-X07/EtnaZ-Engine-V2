@@ -23,6 +23,8 @@ public:
     Layer* getLayer();
     Object* getCamera();
     
+    void deleteTile(Object* tileToRemove);
+    
     virtual void update(float& deltaTime) override;
     virtual void render() override;
 };

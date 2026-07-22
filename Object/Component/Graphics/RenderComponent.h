@@ -34,6 +34,7 @@ public:
     sf::Color* getColor();
     
     void setVisibility(bool newVisibility);
+    bool getVisibility();
     
     virtual void update(float& deltaTime) override;
     virtual void render() override;

@@ -70,13 +70,24 @@ Object* MapEditorComponent::getCamera() {
     return camera;
 }
 
+void MapEditorComponent::deleteTile(Object* tileToRemove) {
+    surface->draw(*tileToRemove->getComponent<RenderComponent>()->getRect());
+    surface->display();
+    delete sprite;
+    sprite = new sf::Sprite(surface->getTexture());
+}
+
 void MapEditorComponent::update(float& deltaTime) {
-    camera->update(deltaTime);
+    if (camera) {
+        camera->update(deltaTime);   
+    }
 }
 
 void MapEditorComponent::render() {
-    GameEngine::getWindow()->draw(*sprite);
-    myLayer->render();
-    camera->render();
-    GameEngine::getWindow()->setView(GameEngine::getWindow()->getDefaultView());
+    if (sprite && myLayer && camera) {
+        GameEngine::getWindow()->draw(*sprite);
+        myLayer->render();
+        camera->render();
+        GameEngine::getWindow()->setView(GameEngine::getWindow()->getDefaultView());   
+    }
 }

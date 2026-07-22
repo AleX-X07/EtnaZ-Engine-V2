@@ -14,6 +14,44 @@
 FillTileComponent::FillTileComponent(Object* _owner) : Component(_owner){
 }
 
+void FillTileComponent::addTile(Object* target, ReadTileComponent* readTile, MapEditorComponent* mapEditor, Scene* currentScene) {
+        target = readTile->getTileSelected();
+        if (target) {
+            for (auto& sT : mapEditor->getSocketTiles()) {
+                auto* comp = sT->getComponent<MouseComponent>();
+                if (comp) {
+                    if (comp->isClicked(mapEditor->getCamera()->getComponent<CameraComponent>()->getView())) {
+                        Object* newTile = new Object(currentScene,sT->getSize(), sT->getPosition());
+                        auto* rend = target->getComponent<RenderComponent>();
+                        newTile->addComponent(new RenderComponent(newTile, rend->getTexture()));
+                        newTile->addComponent(new MouseComponent(newTile));
+                        mapEditor->getObjectsAdd().push_back(newTile);
+                        mapEditor->getLayer()->addInLayer(newTile, readTile->getLayerSelected());
+                    }
+                }
+            }   
+        }
+    }
+
+void FillTileComponent::removeTile(ReadTileComponent* readTile, MapEditorComponent* mapEditor,Scene* currentScene) {
+    if (auto* click = readTile->getRemove()->getComponent<MouseComponent>()) {
+        auto check = click->isSelected();
+        if (check) {
+            for (auto& sT : mapEditor->getSocketTiles()) {
+                for (auto& oA : mapEditor->getObjectsAdd()) {
+                    auto* comp = oA->getComponent<MouseComponent>();
+                    auto* rend = oA->getComponent<RenderComponent>();
+                    if (comp) {
+                        if (comp->isClicked(mapEditor->getCamera()->getComponent<CameraComponent>()->getView())) {
+                            rend->setVisibility(false);
+                        }
+                    }
+                }
+            }   
+        }
+    }
+}
+
 void FillTileComponent::update(float& deltaTime) {
     Object* target = nullptr;
     Scene* currentScene = owner->getCurrentScene();
@@ -26,20 +64,7 @@ void FillTileComponent::update(float& deltaTime) {
     }
     auto* mapEditor = owner->getComponent<MapEditorComponent>();
     if (readTile && mapEditor) {
-        target = readTile->getTileSelected();
-        if (target) {
-            for (auto& sT : mapEditor->getSocketTiles()) {
-                auto* comp = sT->getComponent<MouseComponent>();
-                if (comp) {
-                    if (comp->isClicked(mapEditor->getCamera()->getComponent<CameraComponent>()->getView())) {
-                        Object* newTile = new Object(currentScene,sT->getSize(), sT->getPosition());
-                        auto* rend = target->getComponent<RenderComponent>();
-                        newTile->addComponent(new RenderComponent(newTile, rend->getTexture()));
-                        mapEditor->getObjectsAdd().push_back(newTile);
-                        mapEditor->getLayer()->addInLayer(newTile, readTile->getLayerSelected());
-                    }
-                }
-            }   
-        }
+        addTile(target, readTile, mapEditor, currentScene);
+        removeTile(readTile, mapEditor, currentScene);
     }
 }

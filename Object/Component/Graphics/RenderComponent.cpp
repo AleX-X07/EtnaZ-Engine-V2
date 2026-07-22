@@ -115,6 +115,10 @@ void RenderComponent::setVisibility(bool newVisibility) {
     isActive = newVisibility;
 }
 
+bool RenderComponent::getVisibility() {
+    return isActive;
+}
+
 
 void RenderComponent::update(float& deltaTime) {
     rect->setPosition(owner->getPosition());
