@@ -120,6 +120,10 @@ void ReadTileComponent::removeDisplay() {
         comp->isClicked();
         if (comp->isSelected()) {
             rend->setOutlineColor(sf::Color::Blue);
+            delete currentSelected;
+            currentSelected = nullptr;
+            tileSelect = false;
+            tileSelected = nullptr;
         }
         else {
             rend->setOutlineColor(sf::Color::Black);
@@ -159,6 +163,11 @@ void ReadTileComponent::update(float& deltaTime) {
     for (auto& t : myTiles) {
         if (t->hasComponent<MouseComponent>()) {
             if (t->getComponent<MouseComponent>()->isClicked()) {
+                auto* rend = removeImage->getComponent<RenderComponent>();
+                auto* mouse = removeImage->getComponent<MouseComponent>();
+                if (rend) {
+                    mouse->setSelected(false);
+                }
                 if (tileSelected != t) {
                     delete currentSelected;
                     currentSelected = nullptr;

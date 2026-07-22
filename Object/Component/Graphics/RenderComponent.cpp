@@ -17,6 +17,7 @@ RenderComponent::RenderComponent(Object* _owner, std::string _path) : Component(
         rect->setFillColor({255,255,255,255});
     }
     else {
+        TexturesChest::getInstance()->addTextures(texture);
         rect->setTexture(texture);
     }
 }
@@ -67,11 +68,6 @@ RenderComponent::RenderComponent(Object* _owner, int _outlineTickness, sf::Color
 RenderComponent::~RenderComponent() {
     delete rect;
     rect = nullptr;
-    
-    if (texture != nullptr) {
-        delete texture;
-        texture = nullptr;
-    }
     
     if (color != nullptr) {
         delete color;

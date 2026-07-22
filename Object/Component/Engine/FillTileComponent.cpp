@@ -21,13 +21,16 @@ void FillTileComponent::addTile(ReadTileComponent* readTile, MapEditorComponent*
             for (auto& sT : mapEditor->getSocketTiles()) {
                 auto* comp = sT->getComponent<MouseComponent>();
                 if (comp) {
-                    if (comp->isClicked(mapEditor->getCamera()->getComponent<CameraComponent>()->getView())) {
-                        Object* newTile = new Object(currentScene,sT->getSize(), sT->getPosition());
-                        auto* rend = target->getComponent<RenderComponent>();
-                        newTile->addComponent(new RenderComponent(newTile, rend->getTexture()));
-                        newTile->addComponent(new MouseComponent(newTile));
-                        mapEditor->getObjectsAdd().push_back(newTile);
-                        mapEditor->getLayer()->addInLayer(newTile, readTile->getLayerSelected());
+                    auto* comp2 = owner->getComponent<MouseComponent>();
+                    if (comp2) {
+                        if (comp2->isClicked() && comp->isClicked(mapEditor->getCamera()->getComponent<CameraComponent>()->getView())) {
+                            Object* newTile = new Object(currentScene,sT->getSize(), sT->getPosition());
+                            auto* rend = target->getComponent<RenderComponent>();
+                            newTile->addComponent(new RenderComponent(newTile, rend->getTexture()));
+                            newTile->addComponent(new MouseComponent(newTile));
+                            mapEditor->getObjectsAdd().push_back(newTile);
+                            mapEditor->getLayer()->addInLayer(newTile, readTile->getLayerSelected());
+                        }
                     }
                 }
             }   
@@ -67,6 +70,8 @@ void FillTileComponent::update(float& deltaTime) {
     if (tileToRemove) {
         auto* layer = mapEditor->getLayer();
         layer->removeInLayer(tileToRemove);
+        auto& vec = mapEditor->getObjectsAdd();
+        vec.erase(std::remove(vec.begin(), vec.end(), tileToRemove), vec.end());
         delete tileToRemove;
         tileToRemove = nullptr;
     }

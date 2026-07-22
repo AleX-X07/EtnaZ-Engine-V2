@@ -5,6 +5,10 @@ Scene* GameEngine::currentScene = nullptr;
 
 
 GameEngine::GameEngine() {
+    
+    Input::getInstance();
+    TexturesChest::getInstance();
+    
     window = new sf::RenderWindow(sf::VideoMode({1280,720}),"EtnaZ-Engine");
     deltaTime = 0.0f;
     
@@ -20,6 +24,7 @@ GameEngine::~GameEngine() {
     window = nullptr;
     
     Input::getInstance()->deleteSingleton();
+    TexturesChest::getInstance()->deleteSingleton();
 }
 
 

@@ -21,6 +21,10 @@ void CameraComponent::setZoom(float fact) {
     myView->zoom(fact);
 }
 
+void CameraComponent::setView() {
+    GameEngine::getWindow()->setView(*myView);
+}
+
 void CameraComponent::update(float& deltaTime) {
     sf::Vector2f ObjectivePos = { owner->getPosition().x + owner->getSize().x / 2, owner->getPosition().y + owner->getSize().y / 2 };
         
@@ -40,7 +44,6 @@ void CameraComponent::update(float& deltaTime) {
             }
         }
     }
-    GameEngine::getWindow()->setView(*myView);
 }
 
 

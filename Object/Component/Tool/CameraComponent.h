@@ -15,8 +15,10 @@ public:
     CameraComponent(Object* _owner, sf::FloatRect* _rect);
     CameraComponent(Object* _owner, sf::FloatRect* _rect, bool _zoom);
     virtual ~CameraComponent() override;
+    
     sf::View* getView();
     void setZoom(float fact);
+    void setView();
     
     virtual void update(float& deltaTime) override;
 };

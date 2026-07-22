@@ -11,7 +11,7 @@ MapEditorComponent::MapEditorComponent(Object* _owner) : Component(_owner) {
     myLayer = new Layer();
     myLayer->setNbrLayer(1);
     
-    camera = new Object(GameEngine::getCurrentScene(), {screen.x/4*3,screen.y-15}, {screen.x/4, 15});
+    camera = new Object(GameEngine::getCurrentScene(), owner->getSize(), owner->getPosition());
     camRect = new sf::FloatRect(
     {camera->getPosition().x, camera->getPosition().y},
     {camera->getSize().x, camera->getSize().y}
@@ -79,7 +79,16 @@ void MapEditorComponent::deleteTile(Object* tileToRemove) {
 
 void MapEditorComponent::update(float& deltaTime) {
     if (camera) {
-        camera->update(deltaTime);   
+        auto* cam = camera->getComponent<CameraComponent>();
+        auto* mouse = owner->getComponent<MouseComponent>();
+        if (mouse) {
+            if (mouse->isHover()) {
+                camera->update(deltaTime);   
+            }
+        }
+        if (cam) {
+            cam->setView();   
+        }
     }
 }
 

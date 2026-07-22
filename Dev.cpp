@@ -5,6 +5,7 @@
 #include "Object/Component/Engine/MapEditorComponent.h"
 #include "Object/Component/Engine/ReadTileComponent.h"
 #include "Object/Component/Graphics/RenderComponent.h"
+#include "Object/Component/Periph/MouseComponent.h"
 #include "ViewIsometrique/IsoComponent.h"
 #include "ViewIsometrique/IsoDisplay.h"
 
@@ -13,7 +14,8 @@ Dev::Dev() {
     scene->getLayer()->setNbrLayer(3);
     GameEngine::setCurrentScene(scene);
     
-    Object* map = new Object(scene);
+    Object* map = new Object(scene, editorWindowSize,editorWindowPos);
+    map->addComponent(new MouseComponent(map));
     map->addComponent(new MapEditorComponent(map));
     map->addComponent(new FillTileComponent(map));
     GameEngine::getCurrentScene()->addObjectInScene(map,0);
@@ -22,7 +24,7 @@ Dev::Dev() {
     newObj->addComponent(new RenderComponent(newObj,sf::Color(0,128,128)));
     GameEngine::getCurrentScene()->addObjectInScene(newObj,2);
     
-    Object* newObj2 = new Object(scene,{screen.x/4,screen.y},{0,15});
+    Object* newObj2 = new Object(scene,readerWindowSize,readerWindowPos);
     newObj2->addComponent(new RenderComponent(newObj2,sf::Color(128,128,128)));
     newObj2->addComponent(new ReadTileComponent(newObj2, "Engine/Image",4));
     GameEngine::getCurrentScene()->addObjectInScene(newObj2,1);

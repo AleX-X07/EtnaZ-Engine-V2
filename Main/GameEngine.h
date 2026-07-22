@@ -2,6 +2,7 @@
 #include "SFML/Graphics.hpp"
 
 #include "../Tool/Input.h"
+#include "../Tool/TexturesChest.h"
 #include "../Scene/Scene.h"
 #include "../Dev.h"
 
