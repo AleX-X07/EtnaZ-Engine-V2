@@ -21,6 +21,20 @@ RenderComponent::RenderComponent(Object* _owner, std::string _path) : Component(
     }
 }
 
+RenderComponent::RenderComponent(Object* _owner, sf::Texture* _text) : Component(_owner) {
+    outlineTickness = 0;
+    isActive = true;
+    
+    texture = _text;
+    color = nullptr;
+
+    rect = new sf::RectangleShape(owner->getSize());
+    rect->setPosition(owner->getPosition());
+    if (texture) {
+        rect->setTexture(texture);
+    }
+}
+
 RenderComponent::RenderComponent(Object* _owner, sf::Color _color) : Component(_owner) {
     outlineTickness = 0;
     isActive = true;

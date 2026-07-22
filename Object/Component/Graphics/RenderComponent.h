@@ -17,6 +17,7 @@ private:
 
 public:
     RenderComponent(Object* _owner, std::string _path);
+    RenderComponent(Object* _owner, sf::Texture* _text);
     RenderComponent(Object* _owner, sf::Color _color);  
     RenderComponent(Object* _owner, int _outlineTickness, sf::Color _color);
     virtual ~RenderComponent() override;

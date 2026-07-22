@@ -16,5 +16,7 @@ public:
     void setNbrLayer(int nbrLayers);
     void addInLayer(Object* myObject, int layer);
     
+    int getCurrentLayer(Object* myObject);
+    
     void render();
 };

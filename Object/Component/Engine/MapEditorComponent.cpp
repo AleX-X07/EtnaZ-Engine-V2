@@ -1,5 +1,6 @@
 #include "MapEditorComponent.h"
 
+#include "FillTileComponent.h"
 #include "../../../Main/GameEngine.h"
 #include "../Graphics/RenderComponent.h"
 #include "../Periph/DragComponent.h"
@@ -23,9 +24,8 @@ MapEditorComponent::MapEditorComponent(Object* _owner) : Component(_owner) {
     for (int X = 0; X < level.x/128; X++) {
         for (int Y = 0; Y < level.y/128; Y++) {
             Object* newObj = new Object(GameEngine::getCurrentScene(),{128,128},{128*float(X),128*float(Y)});
-            newObj->addComponent(new RenderComponent(newObj,sf::Color(0,0,0,255)));
-            newObj->getComponent<RenderComponent>()->getRect()->setOutlineColor({255,255,255});
-            newObj->getComponent<RenderComponent>()->getRect()->setOutlineThickness(2);
+            newObj->addComponent(new MouseComponent(newObj));
+            newObj->addComponent(new RenderComponent(newObj,"Assets/Socket.png"));
             socketTiles.push_back(newObj);
             surface->draw(*newObj->getComponent<RenderComponent>()->getRect());
         }
@@ -54,10 +54,23 @@ MapEditorComponent::~MapEditorComponent() {
     sprite = nullptr;
 }
 
+std::vector<Object*>& MapEditorComponent::getSocketTiles() {
+    return socketTiles;
+}
+
+std::vector<Object*>& MapEditorComponent::getObjectsAdd() {
+    return objectsAdd;
+}
+
+Layer* MapEditorComponent::getLayer() {
+    return myLayer;
+}
+
+Object* MapEditorComponent::getCamera() {
+    return camera;
+}
+
 void MapEditorComponent::update(float& deltaTime) {
-    for (auto& sT : socketTiles) {
-        sT->update(deltaTime);
-    }
     camera->update(deltaTime);
 }
 

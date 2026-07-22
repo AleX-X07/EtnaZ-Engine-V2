@@ -7,6 +7,7 @@ class Layer;
 class MapEditorComponent final : public Component {
 private:
     std::vector<Object*> socketTiles;
+    std::vector<Object*> objectsAdd;
     Layer* myLayer;
     Object* camera;
     sf::FloatRect* camRect;
@@ -16,6 +17,11 @@ private:
 public:
     MapEditorComponent(Object* _owner);
     virtual ~MapEditorComponent() override;
+    
+    std::vector<Object*>& getSocketTiles();
+    std::vector<Object*>& getObjectsAdd();
+    Layer* getLayer();
+    Object* getCamera();
     
     virtual void update(float& deltaTime) override;
     virtual void render() override;

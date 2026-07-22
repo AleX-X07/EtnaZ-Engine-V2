@@ -12,6 +12,7 @@ ReadTileComponent::ReadTileComponent(Object* _owner, std::string _path, int _nbr
     currentSelected = nullptr;
     tileSelected = nullptr;
     tileSelect = false;
+    layerSelected = 0;
     
     offsetImage = owner->getSize().x / nbrColonne / 8 * 2;
     currentColonne = 0;
@@ -28,7 +29,7 @@ ReadTileComponent::ReadTileComponent(Object* _owner, std::string _path, int _nbr
     addImage->getComponent<RenderComponent>()->setOutline(5);
     addImage->getComponent<RenderComponent>()->setOutlineColor(sf::Color::Black);
     addImage->addComponent(new HoverComponent(addImage, sf::Color::Green));
-    addImage->getComponent<HoverComponent>()->setOutlineTickness(5);
+    addImage->getComponent<HoverComponent>()->setOutlineTickness(2);
     addImage->getComponent<HoverComponent>()->setOutlineColor(sf::Color::Red);
     addImage->addComponent(new RenderTextComponent(addImage, "Engine/Font/Brown_Cookies.otf", 12, sf::Color::Black));
     addImage->getComponent<RenderTextComponent>()->setText("Add \n Image");
@@ -97,6 +98,14 @@ void ReadTileComponent::addTileFromFile(const std::filesystem::path& _path) {
 
 std::string& ReadTileComponent::getPath() {
     return path;
+}
+
+Object* ReadTileComponent::getTileSelected() {
+    return tileSelected;
+}
+
+int ReadTileComponent::getLayerSelected() {
+    return layerSelected;
 }
 
 void ReadTileComponent::update(float& deltaTime) {

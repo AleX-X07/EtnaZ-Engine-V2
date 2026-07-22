@@ -24,6 +24,8 @@ private:
     
     sf::Vector2f _sizeImage;
     
+    int layerSelected;
+    
 public:
     ReadTileComponent(Object* _owner, std::string _path, int _nbrColonne);
     virtual ~ReadTileComponent() override;
@@ -32,6 +34,9 @@ public:
     void addTileFromFile(const std::filesystem::path& _path);
     
     std::string& getPath();
+    Object* getTileSelected();
+    int getLayerSelected();
+    int getOutlineSocket();
     
     virtual void update(float& deltaTime) override;
     virtual void render() override;

@@ -42,3 +42,5 @@ void CameraComponent::update(float& deltaTime) {
     }
     GameEngine::getWindow()->setView(*myView);
 }
+
+

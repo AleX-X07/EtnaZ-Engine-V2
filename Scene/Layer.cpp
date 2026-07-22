@@ -27,6 +27,17 @@ void Layer::addInLayer(Object* myObject, int layer) {
     }
 }
 
+int Layer::getCurrentLayer(Object* myObject) {
+    int posInLayer = 0;
+    for (int i = 0; i < static_cast<int>(layers.size()); i++) {
+        auto it = std::find(layers[i].begin(), layers[i].end(), myObject);
+        if (it != layers[i].end()) {
+            return i;
+        }
+    }
+    return -1;
+}
+
 void Layer::render() {
     if (!layers.empty()) {
         for (auto& layer : layers) {

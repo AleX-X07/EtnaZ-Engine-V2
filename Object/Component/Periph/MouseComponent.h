@@ -16,6 +16,7 @@ public:
     
     sf::Vector2i getMousePosition();
     bool isClicked();
+    bool isClicked(const sf::View* posByView);
     bool isSelected();
     bool isHover();
     
