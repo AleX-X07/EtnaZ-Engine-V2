@@ -8,12 +8,13 @@ class Scene;
 
 class FillTileComponent final : public Component {
 private:
+    Object* tileToRemove;
     
 public:
     FillTileComponent(Object* _owner);
     virtual ~FillTileComponent() override = default;
     
-    void addTile(Object* target, ReadTileComponent* readTile, MapEditorComponent* mapEditor, Scene* currentScene);
+    void addTile(ReadTileComponent* readTile, MapEditorComponent* mapEditor, Scene* currentScene);
     void removeTile(ReadTileComponent* readTile, MapEditorComponent* mapEditor, Scene* currentScene);
     
     virtual void update(float& deltaTime) override;

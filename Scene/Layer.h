@@ -16,7 +16,8 @@ public:
     void setNbrLayer(int nbrLayers);
     void addInLayer(Object* myObject, int layer);
     
-    int getCurrentLayer(Object* myObject);
+    void removeInLayer(Object* myObject);
+    std::vector<std::vector<Object*>>::iterator getCurrentLayer(Object* myObject);
     
     void render();
 };

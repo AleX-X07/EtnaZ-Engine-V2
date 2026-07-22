@@ -73,7 +73,9 @@ add_executable(EtnaZ_Engine Main/main.cpp
         Object/Component/Engine/MapEditorComponent.h
         Object/Component/Engine/MapEditorComponent.cpp
         Object/Component/Engine/FillTileComponent.h
-        Object/Component/Engine/FillTileComponent.cpp)
+        Object/Component/Engine/FillTileComponent.cpp
+        Tool/TexturesChest.h
+        Tool/TexturesChest.cpp)
 
 target_include_directories(EtnaZ_Engine PRIVATE ${tinyfiledialogs_SOURCE_DIR})
 

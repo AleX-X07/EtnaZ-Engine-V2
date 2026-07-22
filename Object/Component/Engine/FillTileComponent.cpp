@@ -11,10 +11,11 @@
 #include "../Periph/MouseComponent.h"
 #include "../Tool/CameraComponent.h"
 
-FillTileComponent::FillTileComponent(Object* _owner) : Component(_owner){
+FillTileComponent::FillTileComponent(Object* _owner) : Component(_owner), tileToRemove(nullptr){
 }
 
-void FillTileComponent::addTile(Object* target, ReadTileComponent* readTile, MapEditorComponent* mapEditor, Scene* currentScene) {
+void FillTileComponent::addTile(ReadTileComponent* readTile, MapEditorComponent* mapEditor, Scene* currentScene) {
+        Object* target = nullptr;
         target = readTile->getTileSelected();
         if (target) {
             for (auto& sT : mapEditor->getSocketTiles()) {
@@ -44,6 +45,7 @@ void FillTileComponent::removeTile(ReadTileComponent* readTile, MapEditorCompone
                     if (comp) {
                         if (comp->isClicked(mapEditor->getCamera()->getComponent<CameraComponent>()->getView())) {
                             rend->setVisibility(false);
+                            tileToRemove = oA;
                         }
                     }
                 }
@@ -53,7 +55,6 @@ void FillTileComponent::removeTile(ReadTileComponent* readTile, MapEditorCompone
 }
 
 void FillTileComponent::update(float& deltaTime) {
-    Object* target = nullptr;
     Scene* currentScene = owner->getCurrentScene();
     ReadTileComponent* readTile = nullptr;
     for (auto& obj : GameEngine::getCurrentScene()->getMyObjects()) {
@@ -63,8 +64,14 @@ void FillTileComponent::update(float& deltaTime) {
         }
     }
     auto* mapEditor = owner->getComponent<MapEditorComponent>();
+    if (tileToRemove) {
+        auto* layer = mapEditor->getLayer();
+        layer->removeInLayer(tileToRemove);
+        delete tileToRemove;
+        tileToRemove = nullptr;
+    }
     if (readTile && mapEditor) {
-        addTile(target, readTile, mapEditor, currentScene);
+        addTile(readTile, mapEditor, currentScene);
         removeTile(readTile, mapEditor, currentScene);
     }
 }

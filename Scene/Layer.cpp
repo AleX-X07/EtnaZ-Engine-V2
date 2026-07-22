@@ -27,15 +27,23 @@ void Layer::addInLayer(Object* myObject, int layer) {
     }
 }
 
-int Layer::getCurrentLayer(Object* myObject) {
-    int posInLayer = 0;
-    for (int i = 0; i < static_cast<int>(layers.size()); i++) {
-        auto it = std::find(layers[i].begin(), layers[i].end(), myObject);
-        if (it != layers[i].end()) {
-            return i;
+void Layer::removeInLayer(Object* myObject) {
+    auto layerIt = getCurrentLayer(myObject);
+    if (layerIt != layers.end()) {
+        auto objIt = std::find(layerIt->begin(), layerIt->end(), myObject);
+        if (objIt != layerIt->end()) {
+            layerIt->erase(objIt);
         }
     }
-    return -1;
+}
+
+std::vector<std::vector<Object*>>::iterator Layer::getCurrentLayer(Object* myObject) {
+    for (auto layerIt = layers.begin(); layerIt != layers.end(); ++layerIt) {
+        if (std::find(layerIt->begin(), layerIt->end(), myObject) != layerIt->end()) {
+            return layerIt;
+        }
+    }
+    return layers.end();
 }
 
 void Layer::render() {
