@@ -3,6 +3,10 @@
 Component::Component(Object* _owner) : owner(_owner){
 }
 
+void Component::setOwner(Object* _owner) {
+    owner=_owner;
+}
+
 void Component::update(float& deltaTime) {
     
 }

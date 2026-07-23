@@ -11,6 +11,8 @@ public:
     Component(Object* _owner);
     virtual ~Component() = default;
     
+    void setOwner(Object* _owner);
+    
     virtual void update(float& deltaTime);
     virtual void render();
 };

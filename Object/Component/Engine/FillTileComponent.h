@@ -11,6 +11,7 @@ class Scene;
 class FillTileComponent final : public Component {
 private:
     Object* tileToRemove;
+    bool isDelete;
     
 public:
     FillTileComponent(Object* _owner);

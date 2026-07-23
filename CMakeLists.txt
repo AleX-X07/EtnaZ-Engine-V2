@@ -75,7 +75,13 @@ add_executable(EtnaZ_Engine Main/main.cpp
         Object/Component/Engine/FillTileComponent.h
         Object/Component/Engine/FillTileComponent.cpp
         Tool/TexturesChest.h
-        Tool/TexturesChest.cpp)
+        Tool/TexturesChest.cpp
+        Object/Component/Engine/ToolBarreComponent.h
+        Object/Component/Engine/ToolBarreComponent.cpp
+        Object/Component/Engine/ToolBarre/ToolBarreMenuComponent.h
+        Object/Component/Engine/ToolBarre/ToolBarreMenuComponent.cpp
+        Object/Component/Dev/TestComponent.h
+        Object/Component/Dev/TestComponent.cpp)
 
 target_include_directories(EtnaZ_Engine PRIVATE ${tinyfiledialogs_SOURCE_DIR})
 

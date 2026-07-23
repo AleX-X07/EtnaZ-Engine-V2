@@ -50,6 +50,7 @@ void Input::reset() {
     keyPressed = false;
     mousePressed = false;
     factWheelScrolled = 0;
+    clickConsumed = false;
 }
 
 
@@ -63,6 +64,14 @@ bool Input::isMousePressed(sf::Mouse::Button _button) {
 
 float Input::getWheelScrolled() {
     return factWheelScrolled;
+}
+
+bool Input::isClickConsumed() {
+    return clickConsumed;
+}
+
+void Input::consumeClick() {
+    clickConsumed = true;
 }
 
 void Input::deleteSingleton() {

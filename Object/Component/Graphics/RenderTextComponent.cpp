@@ -12,7 +12,7 @@ RenderTextComponent::RenderTextComponent(Object* _owner, std::string _path, int 
 RenderTextComponent::RenderTextComponent(Object* _owner, std::string _path, int _characterSize, sf::Color _color) : Component(_owner), path(_path) {
     isActive = true;
     
-    myFont = new sf::Font(path);
+    myFont = TexturesChest::getInstance()->getFont(_path);
     if (myFont) {
         myText = new sf::Text(*myFont);
         myText->setCharacterSize(_characterSize);
@@ -29,8 +29,24 @@ RenderTextComponent::~RenderTextComponent() {
     myText = nullptr;
 }
 
+void RenderTextComponent::fitToSize(sf::Vector2f maxSize) {
+    unsigned int size = myText->getCharacterSize();
+    while (size > 1) {
+        myText->setCharacterSize(size);
+        sf::FloatRect bounds = myText->getLocalBounds();
+        if (bounds.size.x <= maxSize.x && bounds.size.y <= maxSize.y) {
+            break;
+        }
+        size--;
+    }
+}
+
 void RenderTextComponent::setText(std::string _text) {
     myText->setString(_text);
+}
+
+void RenderTextComponent::setColor(sf::Color _color) {
+    myText->setFillColor(_color);
 }
 
 void RenderTextComponent::setVisibility(bool _visible) {

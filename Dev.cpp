@@ -4,6 +4,7 @@
 #include "Object/Component/Engine/FillTileComponent.h"
 #include "Object/Component/Engine/MapEditorComponent.h"
 #include "Object/Component/Engine/ReadTileComponent.h"
+#include "Object/Component/Engine/ToolBarreComponent.h"
 #include "Object/Component/Graphics/RenderComponent.h"
 #include "Object/Component/Periph/MouseComponent.h"
 #include "ViewIsometrique/IsoComponent.h"
@@ -20,12 +21,14 @@ Dev::Dev() {
     map->addComponent(new FillTileComponent(map));
     GameEngine::getCurrentScene()->addObjectInScene(map,0);
     
-    Object* newObj = new Object(scene,{screen.x,15},{0,0});
-    newObj->addComponent(new RenderComponent(newObj,sf::Color(0,128,128)));
-    GameEngine::getCurrentScene()->addObjectInScene(newObj,2);
+    Object* toolBarre = new Object(scene,{screen.x,15},{0,0});
+    toolBarre->addComponent(new RenderComponent(toolBarre,sf::Color(0,128,128)));
+    toolBarre->addComponent(new ToolBarreComponent(toolBarre));
+    GameEngine::getCurrentScene()->addObjectInScene(toolBarre,2);
     
-    Object* newObj2 = new Object(scene,readerWindowSize,readerWindowPos);
-    newObj2->addComponent(new RenderComponent(newObj2,sf::Color(128,128,128)));
-    newObj2->addComponent(new ReadTileComponent(newObj2, "Engine/Image",4));
-    GameEngine::getCurrentScene()->addObjectInScene(newObj2,1);
+    Object* panneauLateral = new Object(scene,readerWindowSize,readerWindowPos);
+    panneauLateral->addComponent(new RenderComponent(panneauLateral,sf::Color(128,128,128)));
+    panneauLateral->addComponent(new ReadTileComponent(panneauLateral, "Engine/Image",4));
+    GameEngine::getCurrentScene()->addObjectInScene(panneauLateral,1);
 }
+

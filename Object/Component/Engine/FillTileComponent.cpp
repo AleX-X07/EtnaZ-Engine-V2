@@ -11,7 +11,7 @@
 #include "../Periph/MouseComponent.h"
 #include "../Tool/CameraComponent.h"
 
-FillTileComponent::FillTileComponent(Object* _owner) : Component(_owner), tileToRemove(nullptr){
+FillTileComponent::FillTileComponent(Object* _owner) : Component(_owner), tileToRemove(nullptr), isDelete(false){
 }
 
 void FillTileComponent::addTile(ReadTileComponent* readTile, MapEditorComponent* mapEditor, Scene* currentScene) {
@@ -38,21 +38,23 @@ void FillTileComponent::addTile(ReadTileComponent* readTile, MapEditorComponent*
     }
 
 void FillTileComponent::removeTile(ReadTileComponent* readTile, MapEditorComponent* mapEditor,Scene* currentScene) {
+    isDelete = false;
     if (auto* click = readTile->getRemove()->getComponent<MouseComponent>()) {
-        auto check = click->isSelected();
-        if (check) {
-            for (auto& sT : mapEditor->getSocketTiles()) {
-                for (auto& oA : mapEditor->getObjectsAdd()) {
-                    auto* comp = oA->getComponent<MouseComponent>();
-                    auto* rend = oA->getComponent<RenderComponent>();
-                    if (comp) {
-                        if (comp->isClicked(mapEditor->getCamera()->getComponent<CameraComponent>()->getView())) {
-                            rend->setVisibility(false);
-                            tileToRemove = oA;
-                        }
+        if (click->isSelected()) {
+            auto& objs = mapEditor->getObjectsAdd();
+            for (auto it = objs.rbegin(); it != objs.rend(); ++it) {
+                Object* oA = *it;
+                auto* comp = oA->getComponent<MouseComponent>();
+                auto* rend = oA->getComponent<RenderComponent>();
+                if (comp && !isDelete) {
+                    if (comp->isClicked(mapEditor->getCamera()->getComponent<CameraComponent>()->getView())) {
+                        rend->setVisibility(false);
+                        tileToRemove = oA;
+                        isDelete = true;
+                        break;
                     }
                 }
-            }   
+            }
         }
     }
 }

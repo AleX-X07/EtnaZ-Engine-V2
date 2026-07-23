@@ -33,7 +33,7 @@ ReadTileComponent::ReadTileComponent(Object* _owner, std::string _path, int _nbr
     addImage->addComponent(new MouseComponent(addImage));
     addImage->addComponent(new RenderComponent(addImage, sf::Color::White));
     addImage->addComponent(new HoverComponent(addImage, transparentColor));
-    addImage->addComponent(new RenderTextComponent(addImage, "Engine/Font/Brown_Cookies.otf", 12, sf::Color::Black));
+    addImage->addComponent(new RenderTextComponent(addImage, "Assets/Font/Brown_Cookies.otf", 12, sf::Color::Black));
     addImage->addComponent(new OpenFileExplorerComponent(addImage, path, {"png","jpg"}));
     
     addImage->getComponent<RenderComponent>()->setOutline(2);
@@ -45,7 +45,7 @@ ReadTileComponent::ReadTileComponent(Object* _owner, std::string _path, int _nbr
     
     removeImage->addComponent(new MouseComponent(removeImage));
     removeImage->addComponent(new RenderComponent(removeImage, sf::Color::Red));
-    removeImage->addComponent(new RenderTextComponent(removeImage, "Engine/Font/Brown_Cookies.otf", 12, sf::Color::Black));
+    removeImage->addComponent(new RenderTextComponent(removeImage, "Assets/Font/Brown_Cookies.otf", 12, sf::Color::Black));
     removeImage->addComponent(new HoverComponent(removeImage, transparentColor));
     
     removeImage->getComponent<RenderComponent>()->setOutline(2);

@@ -15,10 +15,17 @@ public:
     virtual void update(float& deltaTime) override;
     
     sf::Vector2i getMousePosition();
+    
     bool isClicked();
     bool isClicked(const sf::View* posByView);
+    
     bool isSelected();
+    
     bool isHover();
+    bool isHover(const sf::View* posByView);
+    
+    bool isNotClicked();
+    bool isNotClicked(const sf::View* posByView);
     
     void setSelected(bool _selected);
 };

@@ -18,6 +18,8 @@ private:
     
     float factWheelScrolled;
     
+    bool clickConsumed;
+    
     Input() = default;
     
 public:
@@ -35,6 +37,9 @@ public:
     bool isMousePressed(sf::Mouse::Button button);
     
     float getWheelScrolled();
+    
+    bool isClickConsumed();
+    void consumeClick();
     
     void deleteSingleton();
 };

@@ -46,8 +46,12 @@ bool MouseComponent::isSelected() {
 }
 
 bool MouseComponent::isHover() {
+    return isHover(&GameEngine::getWindow()->getDefaultView());
+}
+
+bool MouseComponent::isHover(const sf::View* posByView) {
     sf::Vector2i mousePixel = sf::Mouse::getPosition(*GameEngine::getWindow());
-    sf::Vector2f mousePos = GameEngine::getWindow()->mapPixelToCoords(mousePixel, GameEngine::getWindow()->getDefaultView()); 
+    sf::Vector2f mousePos = GameEngine::getWindow()->mapPixelToCoords(mousePixel, *posByView); 
     
     sf::FloatRect bounds(
         {owner->getPosition().x,
@@ -55,10 +59,37 @@ bool MouseComponent::isHover() {
         {owner->getSize().x,
         owner->getSize().y}
     );
+    
     if (bounds.contains(sf::Vector2f(mousePos))) {
         return true;
     }
     return false;
+}
+
+bool MouseComponent::isNotClicked() {
+    return isNotClicked(&GameEngine::getWindow()->getDefaultView());
+}
+
+bool MouseComponent::isNotClicked(const sf::View* posByView) {
+    sf::Vector2i mousePixel = sf::Mouse::getPosition(*GameEngine::getWindow());
+    sf::Vector2f mousePos = GameEngine::getWindow()->mapPixelToCoords(mousePixel, *posByView); 
+    
+    sf::FloatRect bounds(
+        {owner->getPosition().x,
+        owner->getPosition().y},
+        {owner->getSize().x,
+        owner->getSize().y}
+    );
+    
+    if (Input::getInstance()->isMousePressed(sf::Mouse::Button::Left) && !bounds.contains(sf::Vector2f(mousePos))) {
+        if (selected) {
+            selected = false;
+        }
+        return true;
+    }
+    else {
+        return false;
+    }
 }
 
 void MouseComponent::setSelected(bool _selected) {

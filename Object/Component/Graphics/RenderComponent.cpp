@@ -7,17 +7,17 @@ RenderComponent::RenderComponent(Object* _owner, std::string _path) : Component(
     outlineTickness = 0;
     isActive = true;
     
-    texture = new sf::Texture();
     color = nullptr;
 
     rect = new sf::RectangleShape(owner->getSize());
     rect->setPosition(owner->getPosition());
     
-    if (!texture->loadFromFile(_path)) {
+    texture = TexturesChest::getInstance()->getTextureFromPath(_path);
+    
+    if (!texture) {
         rect->setFillColor({255,255,255,255});
     }
     else {
-        TexturesChest::getInstance()->addTextures(texture);
         rect->setTexture(texture);
     }
 }
@@ -26,11 +26,13 @@ RenderComponent::RenderComponent(Object* _owner, sf::Texture* _text) : Component
     outlineTickness = 0;
     isActive = true;
     
-    texture = _text;
     color = nullptr;
-
+    
     rect = new sf::RectangleShape(owner->getSize());
     rect->setPosition(owner->getPosition());
+    
+    texture = TexturesChest::getInstance()->getTextureFromTexture(_text);
+    
     if (texture) {
         rect->setTexture(texture);
     }
